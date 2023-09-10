@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-monaco-base": {
+    "text-editor": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,9 +11,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/ng-monaco-base",
+            "customWebpackConfig": {
+              "path": "./custom-webpack.config.ts"
+            },
+            "outputPath": "dist/text-editor",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -25,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/monaco-editor/min/vs/editor/editor.main.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -57,13 +61,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ng-monaco-base:build:production"
+              "browserTarget": "text-editor:build:production"
             },
             "development": {
-              "browserTarget": "ng-monaco-base:build:development"
+              "browserTarget": "text-editor:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-monaco-base:build"
+            "browserTarget": "text-editor:build"
           }
         },
         "test": {
